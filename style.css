@@ -1,0 +1,92 @@
+body
+{
+	font-family: "Helvetica";
+}
+
+ .item-img
+{
+	width: 40px;
+	height: 40px;
+	position: relative;
+	overflow: hidden;
+
+	background-image: url("items.png");
+	background-repeat: no-repeat;
+	background-color: transparent;
+
+	display: inline-block;
+	vertical-align: middle;
+
+	margin: 5px;
+}
+
+.found
+{
+	vertical-align: middle;
+	font-size: 14px;
+	font-weight: bold;
+
+	padding: 6px;
+
+	height: 43px;
+
+	line-height: 0px;
+}
+
+.found-box
+{
+	width: 20px;
+	height: 20px;
+
+	display: inline-block;
+
+	margin: 3px;
+	margin-left: 5px;
+
+	border-radius: 3px;
+	border: 1px solid gray;
+
+	background-image: url("checkmark.png");
+	background-repeat: no-repeat;
+	background-position: 3px 3px;
+}
+
+p
+{
+	display: inline-block;
+
+}
+
+p.found-text
+{
+	height: 20px;
+
+	top:10px;
+
+	vertical-align: middle;
+
+	margin: 0px;
+}
+
+ul
+{
+	list-style-type: none;
+
+	padding: 0px;
+}
+
+.item
+{
+	display: inline-block;
+
+	border-radius: 5px;
+	border: 1px solid gray;
+	box-shadow: 3px 3px 5px;
+
+	background-color: #EEEEEE;
+
+	padding: 3px;
+	padding-left: 10px;
+
+	margin: 10px;
+}
