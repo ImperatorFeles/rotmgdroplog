@@ -2,8 +2,7 @@ var bigassIDList = [2879, 2976, 2977, 2978, 2563, 2567, 2571, 2572, 2579, 2585, 
 
 $(document).ready(function()
 {
-
-	// add all items to table
+	// add all items to table and to storage
 	for (var i = 0; i < bigassIDList.length; i++)
 	{
 		// extract data from items list
@@ -11,27 +10,54 @@ $(document).ready(function()
 		var name = items[id][0];
 		var x = items[id][3];
 		var y = items[id][4];
+		var stored = $.jStorage.get(id.toString(), -1) != -1;
+		var found = false;
 
-		$("#items-list").append('<li><div class="item"><p>' + name + 
+		// check the local storage and see if the item is found
+		if (!stored)
+		{
+			$.jStorage.set(id.toString(), false);
+		}
+		else
+		{
+			found = $.jStorage.get(id.toString());
+		}
+
+		$("#items-list").append('<li><div class="item" id="' + id + '"><p>' + name + 
 			'</p><span class="item-img" style="background-position: -' + x +
 			'px -' + y + 'px;"></span><button class="found"><p class="found-text">' +
 			'Found</p><span class="found-box"></span></button>' + id + '</div></li>');
+
+		// check the box if it's found
+		if (found)
+		{
+			var last = $("#items-list li:last-child").children(".item");
+
+			console.log(last.attr("id"));
+
+			last.last().addClass("green");
+			last.last().children(".found").children(".found-box").addClass("checked");
+		}
 	}
 
 	$(".found").click(function()
 	{
 		var checkbox = $(this).find(".found-box");
 		var isChecked = checkbox.hasClass("checked");
+		var parentBox = checkbox.parent().parent();
+		var id = parentBox.attr("id");
 
 		if (isChecked)
 		{
 			checkbox.removeClass("checked");
-			checkbox.parent().parent().removeClass("green");
+			parentBox.removeClass("green");
+			$.jStorage.set(id.toString(), false);
 		}
 		else
 		{
 			checkbox.addClass("checked");
-			checkbox.parent().parent().addClass("green");
+			parentBox.addClass("green");
+			$.jStorage.set(id.toString(), true);
 		}
 	});
 });
