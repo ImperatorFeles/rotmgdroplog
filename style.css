@@ -1,9 +1,112 @@
+/* Main element properties */
 body
 {
 	font-family: "Helvetica";
+
+	margin: 0px;
+	padding: 0px;
+
+	text-align: center;
 }
 
- .item-img
+p
+{
+	display: inline-block;
+
+}
+
+ul
+{
+	list-style-type: none;
+
+	padding: 0px;
+}
+
+/* Menu properties */
+#menu
+{
+	background-color: #EEEEEE;
+
+	padding: 10px;
+	margin: 0px;
+}
+
+#menu-list
+{
+	margin: 0px;
+}
+
+/* List of menu items properties */
+#menu-list > li
+{
+	display: inline;
+
+	position: relative;
+
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+
+	border: 2px;
+	border-style: solid;
+	border-color: #CCCCCC;
+
+	background-color: #AAAAAA;
+}
+
+/* List of menu items item properties */
+.menu-item > li
+{
+	left: auto;
+	display: block;
+
+	position: relative;
+
+	padding: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	background-color: #BBBBBB;
+
+	border: 1px;
+	border-style: solid;
+	border-color: #555555;
+
+	z-index: 5000;
+}
+
+.menu-item
+{
+	margin-top: 5px;
+
+	position: absolute;
+	display: block;
+	left: auto;
+}
+
+/* Item entry properties */
+#items
+{
+	padding: 5px;
+}
+
+.item
+{
+	display: inline-block;
+
+	border-radius: 5px;
+	border: 1px solid gray;
+	box-shadow: 3px 3px 5px;
+
+	background-color: #EEEEEE;
+
+	padding: 3px;
+	padding-left: 10px;
+
+	margin: 10px;
+}
+
+.item-img
 {
 	width: 40px;
 	height: 40px;
@@ -18,6 +121,9 @@ body
 	vertical-align: middle;
 
 	margin: 5px;
+
+	position: relative;
+	z-index: 1;
 }
 
 .found
@@ -50,17 +156,6 @@ body
 	background-position: 3px 3px;
 }
 
-.checked
-{
-	background-image: url("checkmark.png");
-}
-
-p
-{
-	display: inline-block;
-
-}
-
 p.found-text
 {
 	height: 20px;
@@ -72,30 +167,23 @@ p.found-text
 	margin: 0px;
 }
 
-ul
+/* Property classes */
+.checked
 {
-	list-style-type: none;
-
-	padding: 0px;
-}
-
-.item
-{
-	display: inline-block;
-
-	border-radius: 5px;
-	border: 1px solid gray;
-	box-shadow: 3px 3px 5px;
-
-	background-color: #EEEEEE;
-
-	padding: 3px;
-	padding-left: 10px;
-
-	margin: 10px;
+	background-image: url("checkmark.png");
 }
 
 .green
 {
 	background-color: #BBFFBB;
+}
+
+.hidden
+{
+	display: none;
+}
+
+.highlight
+{
+	background-color: #EEEEEE !important;
 }
