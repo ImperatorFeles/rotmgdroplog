@@ -46,9 +46,13 @@ body
 	border-radius: 3px;
 	border: 1px solid gray;
 
-	background-image: url("checkmark.png");
 	background-repeat: no-repeat;
 	background-position: 3px 3px;
+}
+
+.checked
+{
+	background-image: url("checkmark.png");
 }
 
 p
@@ -89,4 +93,9 @@ ul
 	padding-left: 10px;
 
 	margin: 10px;
+}
+
+.green
+{
+	background-color: #EEFFEE;
 }
