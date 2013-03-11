@@ -34,6 +34,8 @@ ul
 #menu-list
 {
 	margin: 0px;
+
+	display:inline;
 }
 
 /* List of menu items properties */
@@ -43,9 +45,9 @@ ul
 
 	position: relative;
 
-	padding: 5px;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding: 2px;
+	padding-left: 12px;
+	padding-right: 12px;
 
 	border: 2px;
 	border-style: solid;
@@ -176,6 +178,11 @@ p.found-text
 .green
 {
 	background-color: #BBFFBB;
+}
+
+.red
+{
+	color: #FF3333;
 }
 
 .hidden

@@ -102,6 +102,21 @@ $(document).ready(function()
 			renderList(othersList[itemSubType]);
 		}
 	});
+
+	// click search button
+	$("#search > button").click(function()
+	{
+		renderSearchItem($(this).parent().find("input").val());
+	});
+
+	// hit enter on search box
+	$("#search > input").keypress(function (e)
+	{
+		if (e.which == 13)
+		{
+			renderSearchItem($(this).val());
+		}
+	});
 });
 
 function addItemsToList(items, list)
@@ -239,6 +254,47 @@ function renderFoundItems()
 	// bind jquery for toggling checked when clicking an item
 	$(".found").click(function()
 	{
+		toggleCheckBox($(this))
+	});
+}
+
+function renderSearchItem(item)
+{
+	var list = [];
+	var cleared = false;
+	var found = false;
+
+	for (var i = 0; i < bigassIDList.length; i++)
+	{
+		var id = bigassIDList[i];
+		var name = items[id][0];
+
+		if (name.toLowerCase().search(item.toLowerCase()) >= 0)
+		{
+			found = true;
+
+			// clear list
+			if (!cleared)
+			{
+				$("#items-list").empty();
+				cleared = true;
+			}
+
+			renderItem(id);
+		}
+	}
+
+	if (!found)
+	{
+		$("#items-list").empty();
+		$("#items-list").append('<p class="red">Item not found</p>');
+	}
+
+
+	// bind jquery for toggling checked when clicking an item
+	$(".found").click(function()
+	{
+		fade = false;
 		toggleCheckBox($(this))
 	});
 }
