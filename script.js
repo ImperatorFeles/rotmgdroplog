@@ -45,7 +45,7 @@ $(document).ready(function()
 	});
 
 	// display hand when hovering over save/load
-	$("#save, #load, #unfound").hover(function()
+	$("#save, #load, #unfound, #found").hover(function()
 	{
 		$(this).css('cursor', 'pointer');
 	},
