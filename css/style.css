@@ -115,7 +115,7 @@ ul
 	position: relative;
 	overflow: hidden;
 
-	background-image: url("items.png");
+	background-image: url("../img/items.png");
 	background-repeat: no-repeat;
 	background-color: transparent;
 
@@ -172,7 +172,7 @@ p.found-text
 /* Property classes */
 .checked
 {
-	background-image: url("checkmark.png");
+	background-image: url("../img/checkmark.png");
 }
 
 .green
