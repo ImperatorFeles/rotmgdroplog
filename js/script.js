@@ -22,6 +22,7 @@ $(document).ready(function()
 	addItemsToList(armorsList, menu.find("#armor"));
 	addItemsToList(othersList, menu.find("#other"));
 
+	// generate a unified id list from ids in list.js
 	generateIDList();
 
 	// render all unfound items
@@ -30,11 +31,17 @@ $(document).ready(function()
 	$("#unfound").click(function()
 	{
 		fade = true;
+
+		setError("");
+
 		renderUnfoundItems();
 	});
 	$("#found").click(function()
 	{
 		fade = true;
+
+		setError("");
+
 		renderFoundItems();
 	});
 
@@ -86,38 +93,55 @@ $(document).ready(function()
 		var itemSubType = $(this).html();
 
 		fade = false;
+		
+		setError("");
 
 		if (itemMainType == "weapons")
 		{
 			renderList(weaponsList[itemSubType]);
+			setTitle(itemSubType);
 		}
 		else if (itemMainType == "abilities")
 		{
 			renderList(abilitiesList[itemSubType]);
+			setTitle(itemSubType);
 		}
 		else if (itemMainType == "armor")
 		{
 			renderList(armorsList[itemSubType]);
+			setTitle(itemSubType);
 		}
 		else if (itemMainType == "other")
 		{
 			renderList(othersList[itemSubType]);
+			setTitle(itemSubType);
 		}
 	});
 
 	// click search button
 	$("#search > button").click(function()
 	{
-		renderSearchItem($(this).parent().find("input").val());
+		setError("");
+
+		searchText = $(this).parent().find("input").val();
+
+		searchAndDisplay(searchText);
 	});
 
 	// hit enter on search box
 	$("#search > input").keypress(function (e)
 	{
-		if (e.which == 13)
+		// make sure enter was hit
+		if (e.which != 13)
 		{
-			renderSearchItem($(this).val());
+			return
 		}
+
+		setError("");
+
+		searchText = $(this).val();
+
+		searchAndDisplay(searchText);
 	});
 });
 
@@ -134,7 +158,7 @@ function addItemsToList(items, list)
 function renderList(list)
 {
 	// clear list
-	$("#items-list").empty();
+	$("#items-table tbody").empty();
 
 	for (var i = 0; i < list.length; i++)
 	{
@@ -168,18 +192,19 @@ function renderItem(id)
 	}
 
 	// add the item to the list
-	$("#items-list").append('<li><div class="item" id="' + id + '"><p>' + name + 
+	$("#items-table").append('<tr><td><div id="' + id + '"><p>' + name + 
 			'</p><span class="item-img" style="background-position: -' + x +
-			'px -' + y + 'px;"></span><button class="found"><p class="found-text">' +
-			'Found</p><span class="found-box"></span></button></div></li>');
+			'px -' + y + 'px;"></span></td><td><button class="found">' +
+			'<p class="found-text">' +
+			'Found</p><span class="found-box"></span></button></div></td></tr>');
 
 	// check the box if it's found
 	if (found)
 	{
-		var last = $("#items-list li:last-child").children(".item");
+		var last = $("#items-table tr:last-child");
 
 		last.last().addClass("green");
-		last.last().children(".found").children(".found-box").addClass("checked");
+		last.last().find(".found").children(".found-box").addClass("checked");
 	}
 }
 
@@ -188,8 +213,8 @@ function toggleCheckBox(box)
 {
 	var checkbox = box.find(".found-box");
 	var isChecked = checkbox.hasClass("checked");
-	var parentBox = checkbox.parent().parent();
-	var id = parentBox.attr("id");
+	var parentBox = checkbox.parent().parent().parent();
+	var id = parentBox.find("div").attr("id");
 
 	if (isChecked)
 	{
@@ -222,7 +247,10 @@ function toggleCheckBox(box)
 function renderUnfoundItems()
 {
 	// clear list
-	$("#items-list").empty();
+	$("#items-table tbody").empty();
+
+	// set title
+	setTitle('Unfound Items');
 
 	for (var i = 0; i < bigassIDList.length; i++)
 	{
@@ -246,7 +274,9 @@ function renderUnfoundItems()
 function renderFoundItems()
 {
 	// clear list
-	$("#items-list").empty();
+	$("#items-table tbody").empty();
+
+	setTitle("Found Items");
 
 	for (var i = 0; i < bigassIDList.length; i++)
 	{
@@ -266,46 +296,50 @@ function renderFoundItems()
 	});
 }
 
-// renders a list of items based on the search string, item
-function renderSearchItem(item)
+// searches the list for a name, returns a list of ids
+function findItems(item)
 {
 	var list = [];
 	var cleared = false;
 	var found = false;
 
+	// go through the entire list
 	for (var i = 0; i < bigassIDList.length; i++)
 	{
 		var id = bigassIDList[i];
 		var name = items[id][0];
 
+		// check the name against the passed in search item
 		if (name.toLowerCase().search(item.toLowerCase()) >= 0)
 		{
-			found = true;
-
-			// clear list
-			if (!cleared)
-			{
-				$("#items-list").empty();
-				cleared = true;
-			}
-
-			renderItem(id);
+			list.push(id);
 		}
 	}
 
-	if (!found)
+	return list;
+}
+
+// search for an item and display results or an error
+function searchAndDisplay(item)
+{
+	if (item.trim == "")
 	{
-		$("#items-list").empty();
-		$("#items-list").append('<p class="red">Item not found</p>');
+		return;
 	}
 
+	found = findItems(item);
 
-	// bind jquery for toggling checked when clicking an item
-	$(".found").click(function()
+	// items were found
+	if (found.length > 0)
 	{
-		fade = false;
-		toggleCheckBox($(this))
-	});
+		renderList(found);
+		setTitle('Search Results for "' + item + '"'); 
+	}
+	// items were not found
+	else
+	{
+		setError('No results for "' + item + '"');
+	}
 }
 
 // creates the id list from the menu listings
@@ -326,5 +360,27 @@ function generateIDList()
 	for (var name in othersList)
 	{
 		bigassIDList = bigassIDList.concat(othersList[name]);
+	}
+}
+
+// sets the item list title to be the passed in string
+function setTitle(title)
+{
+	var titleElement = $("#items-title");
+
+	titleElement.html("<h1>" + title + "</h1>");
+}
+
+// sets the error box text
+function setError(error)
+{
+	// it its blank put a <br> so there's some extra space
+	if (error.trim() == "")
+	{
+		$("#error").html("<br>")
+	}
+	else
+	{
+		$("#error").html(error);
 	}
 }

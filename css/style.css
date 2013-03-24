@@ -13,6 +13,7 @@ p
 {
 	display: inline-block;
 
+	margin: 3px;
 }
 
 ul
@@ -22,12 +23,18 @@ ul
 	padding: 0px;
 }
 
+h1
+{
+	margin-bottom: 0px;
+}
+
 /* Menu properties */
 #menu
 {
 	background-color: #EEEEEE;
 
 	padding: 10px;
+	padding-bottom: 5px;
 	margin: 0px;
 }
 
@@ -167,6 +174,47 @@ p.found-text
 	vertical-align: middle;
 
 	margin: 0px;
+}
+
+/* table things */
+
+#items-table
+{
+	margin: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+
+	border-collapse: collapse;
+}
+
+#items-table tr
+{
+	border-style: solid;
+	border-color: gray;
+	border-left: 0px;
+	border-right: 0px;
+	border-top: 0px;
+	border-bottom-width: 1px;
+}
+
+#items-table th
+{
+	padding-bottom: 20px;
+	padding-left: 20px;
+
+	text-align: left;
+
+	font-size: large;
+}
+
+#items-table td
+{
+	padding-right: 0px;
+
+	padding: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 /* Property classes */
