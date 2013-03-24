@@ -185,6 +185,7 @@ p.found-text
 	margin-right: auto;
 	text-align: left;
 
+
 	border-collapse: collapse;
 }
 
@@ -201,7 +202,7 @@ p.found-text
 #items-table th
 {
 	padding-bottom: 20px;
-	padding-left: 20px;
+	padding-left: 0px;
 
 	text-align: left;
 
@@ -212,9 +213,20 @@ p.found-text
 {
 	padding-right: 0px;
 
-	padding: 20px;
+	padding: 0px;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	padding-right: 200px;
+}
+
+#items-table td:first-child
+{
+	padding-left: 0px;
+}
+
+#items-table td:last-child
+{
+	padding-right: 0px;
 }
 
 /* Property classes */
